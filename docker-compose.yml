@@ -1,4 +1,15 @@
 services:
+  db:
+    image: postgres:17
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - "./scripts/init.sql:/docker-entrypoint-initdb.d/init.sql"
+
   jaeger:
     image: jaegertracing/all-in-one:1.6.0
     container_name: jaeger
