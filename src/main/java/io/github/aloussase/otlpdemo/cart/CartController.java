@@ -22,7 +22,7 @@ public class CartController {
     @PostMapping
     public ResponseEntity<Void> saveItem(@RequestBody CartItem cartItem) {
         final var otel = GlobalOpenTelemetry.getTracer("CartController::saveItem");
-        final var span = otel.spanBuilder("saveItem").setSpanKind(SpanKind.SERVER).startSpan();
+        final var span = otel.spanBuilder("CartController::saveItem").setSpanKind(SpanKind.SERVER).startSpan();
 
         try (final var scope = span.makeCurrent()) {
             cartService.saveCartItem(cartItem);

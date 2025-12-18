@@ -1,13 +1,20 @@
 package io.github.aloussase.otlpdemo.cart;
 
-import java.util.concurrent.ConcurrentHashMap;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 
 public class CartDbImpl implements CartDb {
-    private final ConcurrentHashMap<String, CartItem> cartItems = new ConcurrentHashMap<>();
+    private final JdbcTemplate jdbcTemplate;
+
+    public CartDbImpl(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
 
     @Override
     public void saveCartItem(CartItem cartItem) {
-        cartItems.put(cartItem.id(), cartItem);
+        jdbcTemplate.update(
+                "insert into cart_item (id, name, price) values (?::decimal, ?, ?)",
+                cartItem.id(), cartItem.name(), cartItem.price()
+        );
     }
 }

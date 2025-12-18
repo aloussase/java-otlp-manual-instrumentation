@@ -21,7 +21,7 @@ public class TracingCartDb implements CartDb {
         // Instrumentation scopes: https://opentelemetry.io/docs/concepts/instrumentation-scope/
         final var tracer = otel.getTracer("TracingCartDb::saveCartItem");
 
-        final var span = tracer.spanBuilder("saveCartItem")
+        final var span = tracer.spanBuilder("TracingCartDb::saveCartItem")
                 // Span kinds: https://opentelemetry.io/docs/concepts/signals/traces/#span-kind
                 .setSpanKind(SpanKind.SERVER)
                 .startSpan();
