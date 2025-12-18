@@ -11,10 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/v1")
 public class DemoController {
 
-    // TODO: Implement a fibonacci endpoint
-
-    // TODO: Add a postgres db to see what gives
-
     @GetMapping("/health")
     public ResponseEntity<String> health() {
         final var otel = GlobalOpenTelemetry.get();
@@ -25,7 +21,9 @@ public class DemoController {
                 .startSpan();
 
         try (final var scope = span.makeCurrent()) {
-            span.setAttribute("status", "UP");
+            if (span.isRecording()) {
+                span.setAttribute("status", "UP");
+            }
             return ResponseEntity.ok("OK");
         } finally {
             span.end();

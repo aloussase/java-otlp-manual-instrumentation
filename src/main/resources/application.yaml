@@ -1,12 +1,3 @@
 spring:
   application:
     name: otlpdemo
-
-
-otel:
-  metrics:
-    exporter: none
-  logs:
-    exporter: console
-  traces:
-    exporter: zipkin
